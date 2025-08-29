@@ -1,4 +1,0 @@
-application:
-  name: echo-app-2
-  path: cluster-software/echo-app/overlays
-  environment: dev
