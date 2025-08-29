@@ -4,7 +4,7 @@ application:
   repoURL: https://charts.jetstack.io
   chart: cert-manager
   targetRevision: 1.18.2
-  values:
+  values: |
     extraArgs:
       - --enable-gateway-api
     crds:

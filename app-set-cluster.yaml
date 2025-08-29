@@ -24,8 +24,11 @@ spec:
         targetRevision: '{{.application.targetRevision}}'
         helm:
           releaseName: 'cluster-{{.application.name}}'
-          valuesObject:
-            {{.application.values}}
+          valuesObject: 
+            extraArgs:
+              - --enable-gateway-api
+            crds:
+              enabled: true
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{.application.namespace}}'
