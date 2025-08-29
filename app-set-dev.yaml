@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: dev-cluster-software
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+  - list:
+      elements:
+      - name: echo-app
+        path: cluster-software/echo-app/overlays
+        environment: dev
+  template:
+    metadata:
+      name: '{{.name}}'
+      namespace: argocd
+    spec:
+      project: "default"
+      source:
+        repoURL: https://github.com/yquansah/argocd-kustomize-infra.git
+        targetRevision: main
+        path: '{{.path}}/{{.environment}}'
+      destination:
+        server: in-cluster
+        namespace: '{{.environment}}'
+      syncPolicy:
+        syncOptions:
+        - CreateNamespace=true
