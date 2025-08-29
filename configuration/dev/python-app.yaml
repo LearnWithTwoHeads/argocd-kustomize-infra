@@ -1,0 +1,4 @@
+application:
+  name: python-app
+  path: cluster-software/python-app/overlays
+  environment: dev
