@@ -7,11 +7,13 @@ spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   generators:
-  - list:
-      elements:
-      - name: echo-app
-        path: cluster-software/echo-app/overlays
-        environment: dev
+  - matrix:
+      generators:
+        - git:
+            repoURL: https://github.com/yquansah/argocd-kustomize-infra.git
+            revision: main
+            files:
+            - path: configuration/dev.yaml
   template:
     metadata:
       name: '{{.name}}'
@@ -23,8 +25,13 @@ spec:
         targetRevision: main
         path: '{{.path}}/{{.environment}}'
       destination:
-        server: in-cluster
+        server: https://kubernetes.default.svc
         namespace: '{{.environment}}'
       syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+          allowEmpty: true
         syncOptions:
         - CreateNamespace=true
+        - PruneLast=true
