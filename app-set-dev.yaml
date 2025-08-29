@@ -7,28 +7,24 @@ spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   generators:
-    - matrix:
-        generators:
-          - git:
-              repoURL: https://github.com/yquansah/argocd-kustomize-infra.git
-              revision: main
-              files:
-              - path: configuration/dev.yaml
-          - list:
-              elements: "{{.applications}}"
+    - git:
+        repoURL: https://github.com/yquansah/argocd-kustomize-infra.git
+        revision: main
+        files:
+        - path: configuration/dev/*.yaml
   template:
     metadata:
-      name: '{{.name}}'
+      name: '{{.application.name}}'
       namespace: argocd
     spec:
       project: "default"
       source:
         repoURL: https://github.com/yquansah/argocd-kustomize-infra.git
         targetRevision: main
-        path: '{{.path}}/{{.environment}}'
+        path: '{{.application.path}}/{{.application.environment}}'
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{.environment}}'
+        namespace: '{{.application.environment}}'
       syncPolicy:
         automated:
           prune: true
