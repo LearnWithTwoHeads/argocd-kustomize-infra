@@ -7,13 +7,15 @@ spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   generators:
-  - matrix:
-      generators:
-        - git:
-            repoURL: https://github.com/yquansah/argocd-kustomize-infra.git
-            revision: main
-            files:
-            - path: configuration/dev.yaml
+    - matrix:
+        generators:
+          - git:
+              repoURL: https://github.com/yquansah/argocd-kustomize-infra.git
+              revision: main
+              files:
+              - path: configuration/dev.yaml
+          - list:
+              elements: "{{.applications}}"
   template:
     metadata:
       name: '{{.name}}'

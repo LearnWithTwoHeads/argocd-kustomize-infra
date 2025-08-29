@@ -1,3 +1,4 @@
-name: echo-app
-path: cluster-software/echo-app/overlays
-environment: prod
+applications:
+  - name: echo-app
+    path: cluster-software/echo-app/overlays
+    environment: prod
