@@ -13,6 +13,8 @@ spec:
         app: python-app
     spec:
       containers:
-      - image: ghcr.io/learnwithtwoheads/sample-projects/python-app:main-cdef060
+      - image: ghcr.io/learnwithtwoheads/sample-projects/python-server:main-cdef060
         imagePullPolicy: IfNotPresent
         name: python-app
+      imagePullSecrets:
+      - name: twoheadsregistry

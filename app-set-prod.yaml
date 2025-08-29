@@ -19,7 +19,7 @@ spec:
     spec:
       project: "default"
       source:
-        repoURL: https://github.com/yquansah/argocd-kustomize-infra.git
+        repoURL: https://github.com/learnwithtwoheads/argocd-kustomize-infra.git
         targetRevision: main
         path: '{{.path}}/{{.environment}}'
       destination:

@@ -8,7 +8,7 @@ spec:
   goTemplateOptions: ["missingkey=error"]
   generators:
     - git:
-        repoURL: https://github.com/yquansah/argocd-kustomize-infra.git
+        repoURL: https://github.com/learnwithtwoheads/argocd-kustomize-infra.git
         revision: main
         files:
         - path: configuration/cluster/*.yaml

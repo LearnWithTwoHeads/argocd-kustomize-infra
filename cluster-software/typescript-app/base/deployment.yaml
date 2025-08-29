@@ -16,3 +16,5 @@ spec:
       - image: ghcr.io/learnwithtwoheads/sample-projects/typescript-nodejs-server:main-cdef060
         imagePullPolicy: IfNotPresent
         name: typescript-app
+      imagePullSecrets:
+      - name: twoheadsregistry
