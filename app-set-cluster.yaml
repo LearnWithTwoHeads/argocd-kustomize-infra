@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: cluster-specific-software
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - git:
+        repoURL: https://github.com/yquansah/argocd-kustomize-infra.git
+        revision: main
+        files:
+        - path: configuration/cluster/*.yaml
+  template:
+    metadata:
+      name: '{{.application.name}}'
+      namespace: argocd
+    spec:
+      project: "default"
+      source:
+        chart: '{{.application.chart}}'
+        repoURL: '{{.application.repoURL}}'
+        targetRevision: '{{.application.targetRevision}}'
+        helm:
+          releaseName: 'cluster-{{.application.name}}'
+          valuesObject:
+            {{.application.values}}
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{.application.namespace}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+          allowEmpty: true
+        syncOptions:
+        - CreateNamespace=true
+        - PruneLast=true
