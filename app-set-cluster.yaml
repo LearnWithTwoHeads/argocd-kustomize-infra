@@ -25,7 +25,7 @@ spec:
         helm:
           releaseName: 'cluster-{{.application.name}}'
           values: |
-            {{.application.values | indent 12}}
+            {{.application.values | default "" | indent 12}}
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{.application.namespace}}'

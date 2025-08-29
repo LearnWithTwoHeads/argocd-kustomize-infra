@@ -1,0 +1,21 @@
+application:
+  name: traefik
+  namespace: traefik
+  repoURL: https://traefik.github.io/charts
+  chart: traefik
+  targetRevision: 36.3.0
+  values: |
+    gateway:
+      listeners:
+        websecure:
+          port: 8443
+          protocol: HTTPS
+          namespacePolicy: All
+          mode: Terminate
+    providers:
+      kubernetesIngress:
+        enabled: false
+      kubernetesGateway:
+        enabled: true
+    service:
+      type: NodePort
