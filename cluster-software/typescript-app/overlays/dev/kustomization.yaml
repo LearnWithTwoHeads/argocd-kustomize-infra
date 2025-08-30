@@ -9,4 +9,4 @@ patches:
 
 images:
   - name: ghcr.io/learnwithtwoheads/sample-projects/typescript-nodejs-server
-    newTag: 0.9.2
+    newTag: "sha-aff228f"
